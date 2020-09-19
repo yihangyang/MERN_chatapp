@@ -6,12 +6,13 @@ const mongoose = require("mongoose");
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
-const { User } = require('./models/users')
+const { User } = require('./models/users');
+const { mongoURI } = require("./config/key");
 
 const app = express()
 
 // mongo database
-mongoose.connect(`mongodb+srv://${mongodb_name}:${mongodb_pass}@cluster0.utsnh.mongodb.net/<dbname>?retryWrites=true&w=majority`,{
+mongoose.connect(mongoURI ,{
   useNewUrlParser: true // remove duplication errors from mongo
 }).then(() => {
   console.log("MongoDB connected")
@@ -26,11 +27,12 @@ app.use(cookieParser())
 
 app.post('/api/users/register', (req, res) => {
   const user = new User(req.body)
-  user.save((err, userData) => {
+  user.save((err, doc) => {
     if (err) return res.json({ success: false, err })
-  })
-  return res.status(200).json({
-    success: true
+    return res.status(200).json({
+      success: true,
+      userData: doc
+    })
   })
 })
 

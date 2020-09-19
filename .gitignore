@@ -16,3 +16,4 @@ static/mock
 
 # private api-key and password
 private/
+config/dev.js

@@ -1,4 +1,6 @@
 const moogoose = require('mongoose')
+const bcrypt = require('bcrypt')
+
 
 const userSchema = moogoose.Schema({
   name: {
@@ -29,6 +31,23 @@ const userSchema = moogoose.Schema({
   },
   tockenExp: {
     type: Number
+  }
+})
+
+// before saving from password, need to crypt.
+const saltRounds = 10
+userSchema.pre('save', function(next){
+  var user = this
+  if (user.isModified('password')) {
+    bcrypt.genSalt(saltRounds, function(err, salt) {
+      if (err) return next(err) // if we not have access on below, just go to save
+      bcrypt.hash(user.password, salt, function(err, hash){
+        if (err) return next(err) // if we not have access on below, just go to save
+        user.password = hash
+      })
+    })
+  } else {
+    next()
   }
 })
 
