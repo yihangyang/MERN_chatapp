@@ -1,4 +1,4 @@
-const { mongodb_name, mongodb_pass } = require("./server/config/private/access");
+const { mongodb_name, mongodb_pass } = require("./config/private/access");
 const { request, response } = require("express");
 
 const express = require("express");
@@ -6,9 +6,9 @@ const mongoose = require("mongoose");
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
-const { User } = require('./server/models/users');
-const { mongoURI } = require("./server/config/key");
-const { auth } = require("./server/middelwares/auth");
+const { User } = require('./models/users');
+const { mongoURI } = require("./config/key");
+const { auth } = require("./middelwares/auth");
 
 const app = express()
 
