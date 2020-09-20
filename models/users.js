@@ -1,5 +1,6 @@
 const moogoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 
 const userSchema = moogoose.Schema({
@@ -15,7 +16,6 @@ const userSchema = moogoose.Schema({
   },
   password: {
     type: String,
-    maxlength: 50,
     minlenth: 5
   },
   lastname: {
@@ -26,10 +26,10 @@ const userSchema = moogoose.Schema({
     type: Number,
     default: 0 // 0.admin, 1.user
   },
-  tocken: {
+  token: {
     type: String
   },
-  tockenExp: {
+  tokenExp: {
     type: Number
   }
 })
@@ -44,12 +44,41 @@ userSchema.pre('save', function(next){
       bcrypt.hash(user.password, salt, function(err, hash){
         if (err) return next(err) // if we not have access on below, just go to save
         user.password = hash
+        next()
       })
     })
   } else {
     next()
   }
 })
+
+userSchema.methods.comparePassword = function(plainPassword, cb) {
+  bcrypt.compare(plainPassword, this.password, function(err, isMatch) {
+    if (err) return cb(err)
+    return cb(null, isMatch)
+  })
+}
+
+userSchema.methods.generateToken = function(cb) {
+  var user = this
+  var token = jwt.sign(user._id.toHexString(), 'secret')
+
+  user.token = token;
+  user.save(function(err, user) {
+    if (err) return cb(err)
+    cb(null, user)
+  })
+}
+
+userSchema.statics.findByToken = function(token, cb) {
+  var user = this
+  jwt.verify(token, 'secret', function (err, decode){
+    user.findOne({"_id": decode, "token": token}, function (err, user) {
+      if(err) return cb(err)
+      cb(null, user)
+    })
+  })
+}
 
 const User = moogoose.model('User', userSchema)
 
