@@ -26,6 +26,10 @@ app.use(bodyParser.urlencoded({ extended: true })) // no duplication waning
 app.use(bodyParser.json())
 app.use(cookieParser())
 
+app.get('/', (req, res) => {
+  res.json({"hello": "this is first"})
+})
+
 app.get('/api/users/auth', auth, (req, res) => {
   res.status(200).json({
     _id: req.id,
