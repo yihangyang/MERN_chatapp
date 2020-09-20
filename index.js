@@ -1,5 +1,5 @@
 const { mongodb_name, mongodb_pass } = require("./private/access");
-const { request } = require("express");
+const { request, response } = require("express");
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser')
 
 const { User } = require('./models/users');
 const { mongoURI } = require("./config/key");
+const { auth } = require("./middelwares/auth");
 
 const app = express()
 
@@ -33,6 +34,33 @@ app.post('/api/users/register', (req, res) => {
       success: true,
       userData: doc
     })
+  })
+})
+
+app.post('/api/users/login', (req, res) => {
+  // find the email
+  User.findOne({ email: req.body.email }, (err, user) => {
+    if (!user){ 
+      return response.json({
+        loginSuccess: false,
+        message: 'Auth failed due to unvailded email'
+      })}
+      // compare the password
+      user.comparePassword(req.body.password, (err, isMatch) => {
+        if (!isMatch) {
+          return res.json({ loginSuccess: false, message: 'password false' })
+        }
+      })
+      // generate token
+      user.generateToken((err, user) => {
+        if (err) return res.status(400).send(err)
+        res.cookie("abc_auth", user.token)
+          .status(200)
+          .json({
+            loginSuccess: true,
+          })
+      })
+    
   })
 })
 
