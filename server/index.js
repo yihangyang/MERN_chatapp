@@ -14,7 +14,8 @@ const app = express()
 
 // mongo database
 mongoose.connect(mongoURI ,{
-  useNewUrlParser: true // remove duplication errors from mongo
+  useNewUrlParser: true, // remove duplication errors from mongo
+  useUnifiedTopology: true
 }).then(() => {
   console.log("MongoDB connected")
 }).catch(err => {

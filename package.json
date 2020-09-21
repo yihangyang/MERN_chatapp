@@ -1,12 +1,11 @@
 {
-  "name": "MERN_youtube_clone",
+  "name": "sample_react",
   "version": "1.0.0",
   "description": "react basis sturcture",
   "main": "index.js",
   "engines": {
     "node": "12.x",
-    "npm": "6.x",
-    "yarn": "1.x"
+    "npm": "6.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
