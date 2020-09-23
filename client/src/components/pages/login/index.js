@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { loginUser } from '../../../actions/user_actions'
+import { Link } from 'react-router-dom'
 
 
 class Login extends Component {
   state = {
     email: "",
     password: "",
-    errors: ["4","2"]
+    errors: []
   }
   
-  displayErrors = errors => {
-    errors.map((error, i) => <p key={i}>{ error }</p>)
-  }
+  displayErrors = errors => errors.map((error, i) => <p key={i}>{ error }</p>)
+  
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value})
@@ -100,14 +100,14 @@ class Login extends Component {
               </div>
             </div>
 
-            {this.state.errors.length && (
+            {this.state.errors.length > 0 && (
               <div>
                 { this.displayErrors(this.state.errors) }
               </div>
             )}
 
             <div className="row">
-              <div className="col s12">
+              <div className="col s12 center">
                 <button
                   className="btn waves-effect red lighten-2"
                   type="submit"
@@ -115,12 +115,21 @@ class Login extends Component {
                   onClick={this.submitForm}
                 >
                   Login
-                </button>
+                </button> &nbsp;
+                <Link to="/register">
+                  <button
+                    className="btn waves-effect red lighten-2"
+                    type="submit"
+                    name="action"
+                  >
+                    Sign up
+                  </button>
+                </Link>
               </div>
             </div>
           </form>
         </div>
-    </div>
+      </div>
     )
   }
 }
