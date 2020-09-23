@@ -56,26 +56,22 @@ app.post('/api/users/login', (req, res) => {
   // find the email
   User.findOne({ email: req.body.email }, (err, user) => {
     if (!user){ 
-      return response.json({
+      return res.json({
         loginSuccess: false,
         message: 'Auth failed due to unvailded email'
-      })}
-      // compare the password
-      user.comparePassword(req.body.password, (err, isMatch) => {
-        if (!isMatch) {
-          return res.json({ loginSuccess: false, message: 'password false' })
-        }
       })
+    }
+    // compare the password
+    user.comparePassword(req.body.password, (err, isMatch) => {
+      if (!isMatch) return res.json({ loginSuccess: false, message: 'password false' })
       // generate token
       user.generateToken((err, user) => {
         if (err) return res.status(400).send(err)
         res.cookie("abc_auth", user.token)
           .status(200)
-          .json({
-            loginSuccess: true,
-          })
+          .json({ loginSuccess: true, userId: user._id })
       })
-    
+    })
   })
 })
 
