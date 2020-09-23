@@ -1,12 +1,15 @@
+import 'react-app-polyfill/ie9';
+import 'react-app-polyfill/ie11';
+
+import "materialize-css/dist/css/materialize.min.css"
+import "materialize-css/dist/js/materialize.min.js"
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom'
-
-import "materialize-css/dist/css/materialize.min.css"
-import "materialize-css/dist/js/materialize.min.js"
 
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
