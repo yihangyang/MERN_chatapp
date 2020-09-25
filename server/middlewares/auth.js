@@ -1,9 +1,9 @@
-const { User } = require('../models/users')
+const { User } = require('../models/User')
 
 let auth = (req, res, next) => {
-  let auth = req.cookies.abc_auth
+  let token = req.cookies.abc_auth
 
-  User.findbyToken(token, (err, user) => {
+  User.findByToken(token, (err, user) => {
     if (err) throw err
     if (!user) return res.json({
       isAuth: false,

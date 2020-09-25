@@ -1,6 +1,7 @@
 const moogoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const moment = require("moment");
 
 
 const userSchema = moogoose.Schema({
@@ -26,6 +27,7 @@ const userSchema = moogoose.Schema({
     type: Number,
     default: 0 // 0.admin, 1.user
   },
+  image: String,
   token: {
     type: String
   },
@@ -62,7 +64,9 @@ userSchema.methods.comparePassword = function(plainPassword, cb) {
 userSchema.methods.generateToken = function(cb) {
   var user = this
   var token = jwt.sign(user._id.toHexString(), 'secret')
+  var halbHour = moment().add(0.5, 'hour').valueOf();
 
+  user.tokenExp = halbHour;
   user.token = token;
   user.save(function(err, user) {
     if (err) return cb(err)
@@ -72,6 +76,7 @@ userSchema.methods.generateToken = function(cb) {
 
 userSchema.statics.findByToken = function(token, cb) {
   var user = this
+
   jwt.verify(token, 'secret', function (err, decode){
     user.findOne({"_id": decode, "token": token}, function (err, user) {
       if(err) return cb(err)
