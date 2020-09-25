@@ -1,4 +1,4 @@
-const { mongodb_name, mongodb_pass, mongodb_database } = require("./private/access");
+const { mongodb_name, mongodb_pass, mongodb_database } = require("./private/private_access");
 
 
 module.exports = {

@@ -1,14 +1,14 @@
 import React from 'react'
-import { CodepenOutlined } from '@ant-design/icons';
+import { FaCode } from "react-icons/fa";
 
 function LandingPage() {
     return (
         <>
             <div className="app">
-                <CodepenOutlined style={{ fontSize: '4rem' }} /><br />
+                <FaCode style={{ fontSize: '4rem' }} /><br />
                 <span style={{ fontSize: '2rem' }}>Let's Start Coding!</span>
             </div>
-            <div style={{ float: 'right' }}>sample</div>
+            <div style={{ float: 'right' }}>Thanks For Using This Boiler Plate by John Ahn</div>
         </>
     )
 }

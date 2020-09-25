@@ -1,19 +1,16 @@
+/node_modules
+/build
+
+
+
+
 .DS_Store
-node_modules/
-/dist/
+
 npm-debug.log*
-yarn-debug.log*
+yarn-debug.kog*
 yarn-error.log*
-static/mock
 
-# Editor directories and files
-.idea
 .vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
 
-# private api-key and password
-private/
-server/config/devv.js
+
+private_access.js

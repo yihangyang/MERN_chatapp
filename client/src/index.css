@@ -24,7 +24,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  height: 100vh;
 }
 
 input.error {
@@ -35,5 +35,5 @@ input.error {
 .input-feedback {
   color: red;
   height: 5px;
-  margin-top: -0px;
+  margin-top: -12px;
 }

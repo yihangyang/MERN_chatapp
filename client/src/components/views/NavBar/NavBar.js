@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import LeftMenu from './Sections/LeftMenu';
 import RightMenu from './Sections/RightMenu';
-import { Drawer, Button } from 'antd';
-import { AlignRightOutlined } from '@ant-design/icons';
+import { Drawer, Button, Icon } from 'antd';
 import './Sections/Navbar.css';
 
 function NavBar() {
@@ -17,7 +16,7 @@ function NavBar() {
   };
 
   return (
-    <nav className="menu" style={{ position: 'fixed', zIndex: 5, width: '100%', height:"60px" }}>
+    <nav className="menu" style={{ position: 'fixed', zIndex: 5, width: '100%' }}>
       <div className="menu__logo">
         <a href="/">Logo</a>
       </div>
@@ -33,7 +32,7 @@ function NavBar() {
           type="primary"
           onClick={showDrawer}
         >
-          <AlignRightOutlined />
+          <Icon type="align-right" />
         </Button>
         <Drawer
           title="Basic Drawer"

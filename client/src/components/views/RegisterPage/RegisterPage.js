@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { registerUser } from "../../../actions/user_actions";
+import { registerUser } from "../../../_actions/user_actions";
 import { useDispatch } from "react-redux";
 
 import {
@@ -72,13 +72,14 @@ function RegisterPage(props) {
             image: `http://gravatar.com/avatar/${moment().unix()}?d=identicon`
           };
 
-          dispatch(registerUser(dataToSubmit)).then(res => {
-            if (res.payload.registerSuccess) {
+          dispatch(registerUser(dataToSubmit)).then(response => {
+            if (response.payload.success) {
               props.history.push("/login");
             } else {
-              alert("Your email exists already, try another email or login")
+              alert(response.payload.err.errmsg)
             }
           })
+
           setSubmitting(false);
         }, 500);
       }}
@@ -112,7 +113,6 @@ function RegisterPage(props) {
                     errors.name && touched.name ? 'text-input error' : 'text-input'
                   }
                 />
-                
                 {errors.name && touched.name && (
                   <div className="input-feedback">{errors.name}</div>
                 )}
