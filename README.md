@@ -1,18 +1,10 @@
-Hello, My Friends  
-Thank you for having interest in this repository ! 
-
-To use this application, 
-
-1. make dev.js file inside config folder 
-2. put mongoDB info into dev.js file 
-3. Type  " npm install " inside the root directory  ( Download Server Dependencies ) 
-4. Type " npm install " inside the client directory ( Download Front-end Dependencies )
+This is a simple MERN chat app, signin signup system, send friends pics and videos, which can be played or viewed in browser.
 
 
-If you have problem, feel free to ask me ^^ 
 
-You can watch the tutorial for this app.
-
-https://www.youtube.com/channel/UCFyXA9x8lpL3EYWeYhj4C4Q?view_as=subscriber
-
+<p float="left">
+  <img src="shown_pics\1.png" width="240">
+  <img src="shown_pics\2.png" width="240">
+  <img src="shown_pics\3.png" width="240">
+</p>
 
